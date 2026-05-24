@@ -2,7 +2,7 @@ import AppHeader from '../components/AppHeader';
 import MetricsGrid from '../components/MetricsGrid';
 import PianoKeyboard from '../components/PianoKeyboard';
 import WaveformWorkspace from '../components/WaveformWorkspace';
-import { blackKeys, instrumentMeters, whiteKeyMap, whiteKeys } from '../data/keyboard';
+import { blackKeys, instrumentMeters, whiteKeys } from '../data/keyboard';
 
 export default function PianoWaveformPage() {
   return (
@@ -10,7 +10,7 @@ export default function PianoWaveformPage() {
       <AppHeader />
       <MetricsGrid meters={instrumentMeters} />
       <WaveformWorkspace />
-      <PianoKeyboard blackKeys={blackKeys} whiteKeyMap={whiteKeyMap} whiteKeys={whiteKeys} />
+      <PianoKeyboard blackKeys={blackKeys} whiteKeys={whiteKeys} />
     </main>
   );
 }
