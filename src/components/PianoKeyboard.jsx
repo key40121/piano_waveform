@@ -27,7 +27,7 @@ export default function PianoKeyboard({ blackKeys, range, whiteKeys }) {
       </div>
       <div className="keyboard-shell">
         <div className="keybed" aria-label="Piano keys">
-          <div className="white-keys">
+          <div className="white-keys" style={{ '--white-key-count': whiteKeys.length }}>
             {whiteKeys.map((note) => (
               <button className="white-key" key={note} type="button" aria-label={note} />
             ))}
