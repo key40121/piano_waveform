@@ -3,13 +3,12 @@ export default function AppHeader() {
     <header className="topbar">
       <div>
         <h1>Piano Waveform</h1>
-        <p className="header-copy">Browser keyboard instrument with per-note waveform inspection.</p>
+        <p className="header-copy">Inspect note input and waveform output for the browser piano.</p>
       </div>
-      <nav className="mode-tabs" aria-label="Workspace modes">
-        <button className="mode-tab active" type="button">Keyboard</button>
-        <button className="mode-tab" type="button">Waveform</button>
-        <button className="mode-tab" type="button">Settings</button>
-      </nav>
+      <div className="session-state" aria-label="Session state">
+        <span className="state-dot" />
+        <span>Prototype wiring pending</span>
+      </div>
     </header>
   );
 }

@@ -24,28 +24,53 @@ export const whiteKeys = [
 ];
 
 export const blackKeys = [
-  { note: 'C#3', left: 3.7 },
-  { note: 'D#3', left: 8.3 },
-  { note: 'F#3', left: 17.4 },
-  { note: 'G#3', left: 22 },
-  { note: 'A#3', left: 26.6 },
-  { note: 'C#4', left: 35.5 },
-  { note: 'D#4', left: 40.1 },
-  { note: 'F#4', left: 49.2 },
-  { note: 'G#4', left: 53.8 },
-  { note: 'A#4', left: 58.4 },
-  { note: 'C#5', left: 67.4 },
-  { note: 'D#5', left: 72 },
-  { note: 'F#5', left: 81 },
-  { note: 'G#5', left: 85.6 },
-  { note: 'A#5', left: 90.2 },
+  { note: 'C#3', afterWhiteKey: 0 },
+  { note: 'D#3', afterWhiteKey: 1 },
+  { note: 'F#3', afterWhiteKey: 3 },
+  { note: 'G#3', afterWhiteKey: 4 },
+  { note: 'A#3', afterWhiteKey: 5 },
+  { note: 'C#4', afterWhiteKey: 7 },
+  { note: 'D#4', afterWhiteKey: 8 },
+  { note: 'F#4', afterWhiteKey: 10 },
+  { note: 'G#4', afterWhiteKey: 11 },
+  { note: 'A#4', afterWhiteKey: 12 },
+  { note: 'C#5', afterWhiteKey: 14 },
+  { note: 'D#5', afterWhiteKey: 15 },
+  { note: 'F#5', afterWhiteKey: 17 },
+  { note: 'G#5', afterWhiteKey: 18 },
+  { note: 'A#5', afterWhiteKey: 19 },
 ];
 
 export const instrumentMeters = [
-  { label: 'Selected note', value: 'None' },
-  { label: 'Frequency', value: '-- Hz' },
-  { label: 'Velocity', value: '--' },
-  { label: 'Input source', value: 'Mouse / keyboard' },
-  { label: 'Audio engine', value: 'Not connected' },
-  { label: 'Waveform', value: 'Idle' },
+  { label: 'Selected note', value: 'None', tone: 'muted' },
+  { label: 'Frequency', value: '-- Hz', tone: 'muted' },
+  { label: 'Input source', value: 'Mouse / keyboard', tone: 'ready' },
+  { label: 'Waveform buffer', value: 'Idle', tone: 'muted' },
+];
+
+export const transportStatus = [
+  { label: 'Audio context', value: 'Pending gesture', state: 'warning' },
+  { label: 'Keyboard listener', value: 'Planned', state: 'idle' },
+  { label: 'Pointer input', value: 'Planned', state: 'idle' },
+  { label: 'Analyzer node', value: 'Not attached', state: 'error' },
+];
+
+export const waveformReadouts = [
+  { label: 'Window', value: '120 ms' },
+  { label: 'Sample rate', value: '44.1 kHz' },
+  { label: 'Resolution', value: '2048 samples' },
+];
+
+export const keyboardRange = {
+  first: 'C3',
+  last: 'C6',
+  whiteKeyCount: whiteKeys.length,
+  blackKeyCount: blackKeys.length,
+  inputMode: 'Mouse / computer keyboard',
+};
+
+export const setupChecklist = [
+  'Create oscillator per selected note',
+  'Attach keyboard and pointer handlers',
+  'Route analyzer output into waveform view',
 ];
