@@ -7,7 +7,6 @@
   --muted: #93a0a8;
   --quiet: #677680;
   --accent: #70c7ba;
-  --warn: #c8a75c;
   --key-white: #eff2f3;
   --key-white-edge: #c5cdd1;
   --key-black: #10161b;
@@ -37,26 +36,16 @@ body {
 .app-shell {
   display: grid;
   min-height: 100dvh;
-  grid-template-rows: auto minmax(340px, 1fr) auto;
+  grid-template-rows: minmax(340px, 1fr) auto;
   gap: 14px;
   padding: 16px;
   background: var(--bg);
 }
 
-.topbar,
 .workspace,
 .keyboard-section {
   width: min(100%, 1400px);
   margin: 0 auto;
-}
-
-.topbar {
-  display: grid;
-  grid-template-columns: minmax(260px, 1fr) auto;
-  align-items: center;
-  gap: 24px;
-  border-bottom: 1px solid var(--line);
-  padding: 4px 0 14px;
 }
 
 h1,
@@ -85,7 +74,6 @@ h3 {
   letter-spacing: 0;
 }
 
-.header-copy,
 .panel-head p,
 .section-head p,
 .empty-message p {
@@ -93,28 +81,6 @@ h3 {
   color: var(--muted);
   font-size: 0.84rem;
   line-height: 1.45;
-}
-
-.session-state {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  justify-self: end;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--text);
-  font-size: 0.82rem;
-  font-weight: 650;
-  padding: 8px 11px;
-}
-
-.state-dot {
-  display: inline-block;
-  flex: 0 0 auto;
-  border-radius: 999px;
-  width: 8px;
-  height: 8px;
-  background: var(--warn);
 }
 
 .readout-list dt,
@@ -329,18 +295,13 @@ h3 {
 
 @media (max-width: 720px) {
   .app-shell {
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto;
     padding: 12px;
   }
 
-  .topbar,
   .panel-head,
   .section-head {
     grid-template-columns: 1fr;
-  }
-
-  .session-state {
-    justify-self: start;
   }
 
   .readout-list,
