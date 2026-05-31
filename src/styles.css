@@ -231,8 +231,15 @@ h3 {
 .keybed {
   position: relative;
   height: clamp(154px, 21vh, 214px);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   background: #0f1519;
+}
+
+.keyboard-track {
+  position: relative;
+  height: 100%;
+  min-width: var(--keyboard-track-min-width);
 }
 
 .white-keys {
@@ -310,11 +317,4 @@ h3 {
     grid-template-columns: repeat(2, minmax(110px, 1fr));
   }
 
-  .keybed {
-    overflow-x: auto;
-  }
-
-  .white-keys {
-    min-width: 1180px;
-  }
 }

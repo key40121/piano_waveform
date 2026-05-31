@@ -1,8 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import usePianoAudio from '../hooks/usePianoAudio';
 
+const whiteKeyGapPx = 1;
+const minimumWhiteKeyWidthPx = 24;
+
 function getBlackKeyPosition(afterWhiteKey, whiteKeyCount) {
-  return `${((afterWhiteKey + 1) / whiteKeyCount) * 100}%`;
+  const gapsWidth = (whiteKeyCount - 1) * whiteKeyGapPx;
+  const keyWidth = `(100% - ${gapsWidth}px) / ${whiteKeyCount}`;
+  const keyEnd = `${afterWhiteKey + 1} * (${keyWidth})`;
+  const gapCenter = afterWhiteKey * whiteKeyGapPx + whiteKeyGapPx / 2;
+
+  return `calc(${keyEnd} + ${gapCenter}px)`;
+}
+
+function getKeyboardTrackMinWidth(whiteKeyCount) {
+  const totalKeyWidth = whiteKeyCount * minimumWhiteKeyWidthPx;
+  const totalGapWidth = (whiteKeyCount - 1) * whiteKeyGapPx;
+
+  return `${totalKeyWidth + totalGapWidth}px`;
 }
 
 export default function PianoKeyboard({ blackKeys, range, whiteKeys }) {
@@ -116,38 +131,46 @@ export default function PianoKeyboard({ blackKeys, range, whiteKeys }) {
           onPointerLeave={clearPressOnPointerExit}
           onPointerMove={updatePressFromPointer}
         >
-          <div className="white-keys" style={{ '--white-key-count': whiteKeys.length }}>
-            {whiteKeys.map((note) => (
-              <button
-                className={`white-key ${pressedNote === note ? 'pressed' : ''}`}
-                key={note}
-                type="button"
-                aria-label={note}
-                aria-pressed={pressedNote === note}
-                data-note={note}
-                onBlur={clearPressOnKeyboardExit}
-                onKeyDown={startKeyboardPress(note)}
-                onKeyUp={stopKeyboardPress}
-                onPointerDown={startPress(note)}
-              />
-            ))}
-          </div>
-          <div className="black-keys">
-            {blackKeys.map(({ afterWhiteKey, note }) => (
-              <button
-                className={`black-key ${pressedNote === note ? 'pressed' : ''}`}
-                key={note}
-                type="button"
-                aria-label={note}
-                aria-pressed={pressedNote === note}
-                data-note={note}
-                onBlur={clearPressOnKeyboardExit}
-                onKeyDown={startKeyboardPress(note)}
-                onKeyUp={stopKeyboardPress}
-                onPointerDown={startPress(note)}
-                style={{ left: getBlackKeyPosition(afterWhiteKey, whiteKeys.length) }}
-              />
-            ))}
+          <div
+            className="keyboard-track"
+            style={{
+              '--keyboard-track-min-width': getKeyboardTrackMinWidth(whiteKeys.length),
+              '--white-key-count': whiteKeys.length,
+            }}
+          >
+            <div className="white-keys">
+              {whiteKeys.map((note) => (
+                <button
+                  className={`white-key ${pressedNote === note ? 'pressed' : ''}`}
+                  key={note}
+                  type="button"
+                  aria-label={note}
+                  aria-pressed={pressedNote === note}
+                  data-note={note}
+                  onBlur={clearPressOnKeyboardExit}
+                  onKeyDown={startKeyboardPress(note)}
+                  onKeyUp={stopKeyboardPress}
+                  onPointerDown={startPress(note)}
+                />
+              ))}
+            </div>
+            <div className="black-keys">
+              {blackKeys.map(({ afterWhiteKey, note }) => (
+                <button
+                  className={`black-key ${pressedNote === note ? 'pressed' : ''}`}
+                  key={note}
+                  type="button"
+                  aria-label={note}
+                  aria-pressed={pressedNote === note}
+                  data-note={note}
+                  onBlur={clearPressOnKeyboardExit}
+                  onKeyDown={startKeyboardPress(note)}
+                  onKeyUp={stopKeyboardPress}
+                  onPointerDown={startPress(note)}
+                  style={{ left: getBlackKeyPosition(afterWhiteKey, whiteKeys.length) }}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
