@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import usePianoAudio from '../hooks/usePianoAudio';
 
 function getBlackKeyPosition(afterWhiteKey, whiteKeyCount) {
   return `${((afterWhiteKey + 1) / whiteKeyCount) * 100}%`;
@@ -7,11 +8,13 @@ function getBlackKeyPosition(afterWhiteKey, whiteKeyCount) {
 export default function PianoKeyboard({ blackKeys, range, whiteKeys }) {
   const [pressedNote, setPressedNote] = useState(null);
   const isPointerPressing = useRef(false);
+  const { playNote, stopNote } = usePianoAudio();
 
   useEffect(() => {
     function stopPointerPress() {
       isPointerPressing.current = false;
       setPressedNote(null);
+      stopNote();
     }
 
     window.addEventListener('pointercancel', stopPointerPress);
@@ -21,13 +24,14 @@ export default function PianoKeyboard({ blackKeys, range, whiteKeys }) {
       window.removeEventListener('pointercancel', stopPointerPress);
       window.removeEventListener('pointerup', stopPointerPress);
     };
-  }, []);
+  }, [stopNote]);
 
   function startPress(note) {
     return (event) => {
       event.preventDefault();
       isPointerPressing.current = true;
       setPressedNote(note);
+      playNote(note);
     };
   }
 
@@ -40,18 +44,27 @@ export default function PianoKeyboard({ blackKeys, range, whiteKeys }) {
     const note = event.currentTarget.contains(key) ? key?.dataset.note : null;
 
     setPressedNote(note ?? null);
+
+    if (note) {
+      playNote(note);
+    } else {
+      stopNote();
+    }
   }
 
   function clearPressOnPointerExit() {
     if (isPointerPressing.current) {
       setPressedNote(null);
+      stopNote();
     }
   }
 
   function startKeyboardPress(note) {
     return (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
         setPressedNote(note);
+        playNote(note);
       }
     };
   }
@@ -59,6 +72,7 @@ export default function PianoKeyboard({ blackKeys, range, whiteKeys }) {
   function stopKeyboardPress(event) {
     if (event.key === 'Enter' || event.key === ' ') {
       setPressedNote(null);
+      stopNote();
     }
   }
 
@@ -68,6 +82,7 @@ export default function PianoKeyboard({ blackKeys, range, whiteKeys }) {
     window.setTimeout(() => {
       if (!keybed?.contains(document.activeElement)) {
         setPressedNote(null);
+        stopNote();
       }
     }, 0);
   }
