@@ -281,10 +281,15 @@ h3 {
   border: 0;
   border-bottom: 1px solid var(--key-white-edge);
   background: var(--key-white);
-  cursor: default;
+  cursor: pointer;
   transition:
     background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.white-key.pressed {
+  background: #a6ded6;
+  border-bottom-color: #6baea6;
 }
 
 .white-key:active {
@@ -306,6 +311,20 @@ h3 {
   background: var(--key-black);
   border: 1px solid #06090b;
   border-top: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  transition:
+    background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.black-key.pressed {
+  background: #4f9b91;
+  border-color: #356f68;
+}
+
+.black-key:active {
+  transform: translateX(-50%) translateY(1px);
 }
 
 @media (max-width: 720px) {
